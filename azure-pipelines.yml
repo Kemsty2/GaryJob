@@ -32,3 +32,12 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure for Students(8fa65333-745d-43f1-b601-eb84b39f079d)'
+    appType: 'webApp'
+    appName: 'gary-app'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
