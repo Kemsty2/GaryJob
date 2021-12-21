@@ -10,19 +10,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Storage.Net;
 using System;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace GaryJob.Workflows.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddWorkflowServices(this IServiceCollection services, Action<DbContextOptionsBuilder> configureDb)
+        public static IServiceCollection AddWorkflowServices(this IServiceCollection services, Action<DbContextOptionsBuilder> configureDb, IConfiguration configuration)
         {
             return services
-                .AddElsa(configureDb);
+                .AddElsa(configureDb, configuration);
         }
 
-        private static IServiceCollection AddElsa(this IServiceCollection services, Action<DbContextOptionsBuilder> configureDb)
+        private static IServiceCollection AddElsa(this IServiceCollection services, Action<DbContextOptionsBuilder> configureDb, IConfiguration configuration)
         {
+            var elsaSection = configuration.GetSection("Elsa");
             services
                 .AddElsa(elsa => elsa
 
@@ -39,7 +41,7 @@ namespace GaryJob.Workflows.Extensions
                     .AddEmailActivities()
 
                     // Configure HTTP activities.
-                    .AddHttpActivities()
+                    .AddHttpActivities(elsaSection.GetSection("Server").Bind)
 
                     .AddActivitiesFrom<SaveFile>()
                 );

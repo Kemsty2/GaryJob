@@ -1,5 +1,7 @@
+using GaryJob.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,21 +10,34 @@ namespace GaryJob.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services
+                .ConfigureControllers()
+                .ConfigureHealthChecks(Configuration)
+                .ConfigureApiVersioning()
+                .ConfigureSwagger(Configuration)
+                .ConfigureElsa(Configuration)
+                .ConfigureCors()
+                .ConfigureHangfire(Configuration)
+                .ConfigureOptions(Configuration)
+                .ConfigureDomainServices(Environment)
+                .ConfigurePersistenceServices(Configuration)
+                .AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -35,18 +50,20 @@ namespace GaryJob.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app
+                .UseAutoWrapper()
+                .UseStaticFiles()
+                .UseHttpActivities()
+                .UseRouting()
+                .UseSwagger(provider, Configuration)
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints
+                        .ConfigureHealthCheck();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-            });
+                    endpoints.MapFallbackToPage("/_Host");
+                });
         }
     }
 }

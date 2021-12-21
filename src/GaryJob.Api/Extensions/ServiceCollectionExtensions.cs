@@ -1,5 +1,6 @@
 ﻿using Elsa.Activities.Email.Options;
 using Elsa.Activities.Http.Options;
+using Elsa.Persistence.EntityFramework.Sqlite;
 using Elsa.Server.Hangfire.Extensions;
 using GaryJob.Core.Extensions;
 using GaryJob.Core.Options;
@@ -12,7 +13,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -34,7 +34,7 @@ namespace GaryJob.Api.Extensions
         public static IServiceCollection ConfigureElsa(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("Sqlite");
-            services.AddWorkflowServices(dbContext => dbContext.UseSqlite(connectionString));
+            services.AddWorkflowServices(dbContext => dbContext.UseSqlite(connectionString), configuration);
 
             // Configure SMTP.
             services.Configure<SmtpOptions>(options => configuration.GetSection("Elsa:Smtp").Bind(options));
@@ -119,13 +119,6 @@ namespace GaryJob.Api.Extensions
         {
             services.AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy(), tags: new[] { "self", "ready" });
-
-            return services;
-        }
-
-        public static IServiceCollection ConfigureHttpContextAccessor(this IServiceCollection services)
-        {
-            services.AddHttpContextAccessor();
 
             return services;
         }

@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F50EC9AF-FB09-4256-82FA-BC2A3CB43874}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaryJob.Api", "src\GaryJob.Api\GaryJob.Api.csproj", "{4DAB59B4-0A57-4377-9E70-4A92E284ACC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaryJob.Api", "src\GaryJob.Api\GaryJob.Api.csproj", "{4DAB59B4-0A57-4377-9E70-4A92E284ACC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaryJob.Core", "src\GaryJob.Core\GaryJob.Core.csproj", "{93A36874-88A8-49AF-8E1E-932589FEB871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaryJob.Core", "src\GaryJob.Core\GaryJob.Core.csproj", "{93A36874-88A8-49AF-8E1E-932589FEB871}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaryJob.Workflows", "src\GaryJob.Workflows\GaryJob.Workflows.csproj", "{C37361FD-0381-46CC-A74B-4C13F9475D8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaryJob.Workflows", "src\GaryJob.Workflows\GaryJob.Workflows.csproj", "{C37361FD-0381-46CC-A74B-4C13F9475D8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaryJob.Persistence", "src\GaryJob.Persistence\GaryJob.Persistence.csproj", "{55F5A89F-0F9E-4ACC-8237-02311C4EB5EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaryJob.Persistence", "src\GaryJob.Persistence\GaryJob.Persistence.csproj", "{55F5A89F-0F9E-4ACC-8237-02311C4EB5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4DAB59B4-0A57-4377-9E70-4A92E284ACC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -75,10 +72,16 @@ Global
 		{55F5A89F-0F9E-4ACC-8237-02311C4EB5EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{55F5A89F-0F9E-4ACC-8237-02311C4EB5EA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4DAB59B4-0A57-4377-9E70-4A92E284ACC4} = {F50EC9AF-FB09-4256-82FA-BC2A3CB43874}
 		{93A36874-88A8-49AF-8E1E-932589FEB871} = {F50EC9AF-FB09-4256-82FA-BC2A3CB43874}
 		{C37361FD-0381-46CC-A74B-4C13F9475D8A} = {F50EC9AF-FB09-4256-82FA-BC2A3CB43874}
 		{55F5A89F-0F9E-4ACC-8237-02311C4EB5EA} = {F50EC9AF-FB09-4256-82FA-BC2A3CB43874}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70D39943-2E8D-4A7C-B90E-96EBE2A13A81}
 	EndGlobalSection
 EndGlobal
