@@ -25,7 +25,7 @@ namespace GaryJob.Api
             services
                 .ConfigureControllers()
                 .ConfigureHealthChecks(Configuration)
-                .ConfigureApiVersioning()
+                //.ConfigureApiVersioning()
                 .ConfigureSwagger(Configuration)
                 .ConfigureElsa(Configuration)
                 .ConfigureCors()
